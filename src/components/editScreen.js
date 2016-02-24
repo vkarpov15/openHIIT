@@ -9,7 +9,7 @@ class EditScreenSaveButton extends React.Component {
       configuration: this.props.configuration
     });
     return (
-      <React.TouchableHighlight onPress={stop} style={styles.button}>
+      <React.TouchableHighlight onPress={stop} style={editScreenStyles.button}>
         <React.Text style={editScreenStyles.buttonText}>
           &#x2714; Save
         </React.Text>
@@ -24,7 +24,7 @@ class EditScreenCancelButton extends React.Component {
       type: 'CANCEL_EDIT'
     });
     return (
-      <React.TouchableHighlight onPress={stop} style={styles.button}>
+      <React.TouchableHighlight onPress={stop} style={editScreenStyles.button}>
         <React.Text style={editScreenStyles.buttonText}>
           &#x2718; Cancel
         </React.Text>
@@ -47,6 +47,14 @@ const editScreenStyles = React.StyleSheet.create({
     padding: 3,
     margin: 10
   },
+  columnHeader: {
+    width: 120,
+    fontSize: 15,
+    color: '#ffffff',
+    marginLeft: 10,
+    marginRight: 10,
+    fontFamily: 'Righteous'
+  },
   inputHeader: {
     color: '#0BD2FD',
     fontSize: 30,
@@ -66,9 +74,16 @@ const editScreenStyles = React.StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start'
   },
+  button: {
+    margin: 20,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    backgroundColor: '#EB219B'
+  },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: 22,
     fontFamily: 'Righteous'
   }
 });
@@ -118,6 +133,15 @@ class EditScreen extends React.Component {
         <React.Text style={editScreenStyles.inputHeader}>
           Actions
         </React.Text>
+        <React.View
+          style={editScreenStyles.actionWrapper}>
+          <React.Text style={editScreenStyles.columnHeader}>
+            Name
+          </React.Text>
+          <React.Text style={editScreenStyles.columnHeader}>
+            Seconds
+          </React.Text>
+        </React.View>
         {
           this.state.actions.map(action => {
             return (
