@@ -10,8 +10,23 @@ class EditScreenSaveButton extends React.Component {
     });
     return (
       <React.TouchableHighlight onPress={stop} style={styles.button}>
-        <React.Text style={styles.timerControl}>
+        <React.Text style={editScreenStyles.buttonText}>
           &#x2714; Save
+        </React.Text>
+      </React.TouchableHighlight>
+    );
+  }
+}
+
+class EditScreenCancelButton extends React.Component {
+  render() {
+    const stop = () => store.dispatch({
+      type: 'CANCEL_EDIT'
+    });
+    return (
+      <React.TouchableHighlight onPress={stop} style={styles.button}>
+        <React.Text style={editScreenStyles.buttonText}>
+          &#x2718; Cancel
         </React.Text>
       </React.TouchableHighlight>
     );
@@ -46,6 +61,15 @@ const editScreenStyles = React.StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     width: 280
+  },
+  buttons: {
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontFamily: 'Righteous'
   }
 });
 
@@ -114,7 +138,11 @@ class EditScreen extends React.Component {
             );
           })
         }
-        <EditScreenSaveButton configuration={this.state} />
+        <React.View
+          style={editScreenStyles.buttons}>
+          <EditScreenSaveButton configuration={this.state} />
+          <EditScreenCancelButton />
+        </React.View>
       </React.View>
     );
   }

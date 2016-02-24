@@ -1,4 +1,8 @@
+const Sound = require('react-native-sound');
 const redux = require('redux');
+
+const doneNotification = new Sound('alarm.mp3', Sound.MAIN_BUNDLE);
+const notification = new Sound('notify.mp3', Sound.MAIN_BUNDLE);
 
 const store = redux.createStore(reducer);
 module.exports = store;
@@ -35,11 +39,12 @@ function reducer(state, action) {
       return state;
     },
     TICK_100: () => {
+      const actions = state.configuration.actions;
       state.current.milliseconds = state.current.milliseconds - 100;
       if (state.current.milliseconds <= 0) {
-        if (state.current.actionIndex + 1 < state.configuration.actions.length) {
-          state.current.milliseconds =
-            state.configuration.actions[++state.current.actionIndex].durationMilliseconds;
+        if (state.current.actionIndex + 1 < actions.length) {
+          const action = actions[++state.current.actionIndex];
+          state.current.milliseconds = action.durationMilliseconds;
         } else if (state.current.iterations < state.configuration.iterations) {
           ++state.current.iterations;
           state.current.actionIndex = 0;
@@ -74,6 +79,10 @@ function reducer(state, action) {
           durationMilliseconds: Math.round(ms)
         };
       });
+      return state;
+    },
+    CANCEL_EDIT: () => {
+      state.current.state = 'HOME';
       return state;
     },
     RESET_AFTER_DONE: () => {

@@ -2,13 +2,9 @@
 
 const EditScreen = require('./src/components/editScreen');
 const React = require('react-native');
-const Sound = require('react-native-sound');
 const _ = require('lodash');
 const store = require('./src/store');
 const styles = require('./src/baseStyles');
-
-const doneNotification = new Sound('alarm.mp3', Sound.MAIN_BUNDLE);
-const notification = new Sound('notify.mp3', Sound.MAIN_BUNDLE);
 
 class StartTimerButton extends React.Component {
   render() {
