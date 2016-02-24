@@ -1,0 +1,123 @@
+const React = require('react-native');
+const store = require('../store');
+const styles = require('../baseStyles');
+
+class EditScreenSaveButton extends React.Component {
+  render() {
+    const stop = () => store.dispatch({
+      type: 'SAVE_CONFIGURATION',
+      configuration: this.props.configuration
+    });
+    return (
+      <React.TouchableHighlight onPress={stop} style={styles.button}>
+        <React.Text style={styles.timerControl}>
+          &#x2714; Save
+        </React.Text>
+      </React.TouchableHighlight>
+    );
+  }
+}
+
+const editScreenStyles = React.StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 25,
+    backgroundColor: '#000000',
+    alignItems: 'center'
+  },
+  input: {
+    backgroundColor: '#FFFFFF',
+    width: 120,
+    fontSize: 25,
+    padding: 3,
+    margin: 10
+  },
+  inputHeader: {
+    color: '#0BD2FD',
+    fontSize: 30,
+    fontFamily: 'Righteous',
+    paddingLeft: 5,
+    marginBottom: 10,
+    marginTop: 25,
+    width: 260,
+    backgroundColor: '#232323'
+  },
+  actionWrapper: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    width: 280
+  }
+});
+
+class EditScreen extends React.Component {
+  constructor(props) {
+    super();
+    const convertAction = (action) => {
+      const ms = action.durationMilliseconds;
+      return {
+        name: action.name,
+        durationSeconds: Math.floor(ms / 1000).toString()
+      };
+    };
+    this.state = {
+      iterations: props.configuration.iterations.toString(),
+      actions: _.map(props.configuration.actions, convertAction)
+    };
+  }
+
+  render() {
+    const handler = text => {
+      this.state.iterations = text;
+      this.setState(this.state);
+    };
+    const changeActionName = action => name => {
+      action.name = name;
+      this.setState(this.state);
+    };
+    const changeActionDuration = action => duration => {
+      action.durationSeconds = duration;
+      this.setState(this.state);
+    };
+    return (
+      <React.View style={editScreenStyles.container}>
+        <React.Text style={editScreenStyles.inputHeader}>
+          Iterations
+        </React.Text>
+        <React.View
+          style={editScreenStyles.actionWrapper}>
+          <React.TextInput
+            keyboardType="numeric"
+            style={editScreenStyles.input}
+            value={this.state.iterations}
+            onChangeText={handler} />
+        </React.View>
+        <React.Text style={editScreenStyles.inputHeader}>
+          Actions
+        </React.Text>
+        {
+          this.state.actions.map(action => {
+            return (
+              <React.View
+                style={editScreenStyles.actionWrapper}
+                key={action.name}>
+                <React.TextInput
+                  keyboardType="default"
+                  style={editScreenStyles.input}
+                  value={action.name}
+                  onChangeText={changeActionName(action)} />
+                <React.TextInput
+                  keyboardType="numeric"
+                  style={editScreenStyles.input}
+                  value={action.durationSeconds}
+                  onChangeText={changeActionDuration(action)} />
+              </React.View>
+            );
+          })
+        }
+        <EditScreenSaveButton configuration={this.state} />
+      </React.View>
+    );
+  }
+}
+
+module.exports = EditScreen;
