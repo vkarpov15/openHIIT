@@ -79,8 +79,12 @@ class Basic extends React.Component {
     }
     // Timer in progress
     if (this.state.current.state === 'IN_PROGRESS') {
+      const currentAction =
+        this.state.configuration.actions[this.state.current.actionIndex];
       return (
-        <TimerScreen milliseconds={this.state.current.milliseconds} />
+        <TimerScreen
+          milliseconds={this.state.current.milliseconds}
+          action={currentAction} />
       );
     }
     if (this.state.current.state === 'EDIT') {
