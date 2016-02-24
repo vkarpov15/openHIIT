@@ -4,6 +4,11 @@ module.exports = React.StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: '#000000'
+  },
+  containerTop: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#000000'
   },

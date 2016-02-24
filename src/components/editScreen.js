@@ -36,10 +36,12 @@ class EditScreenCancelButton extends React.Component {
 
 const editScreenStyles = React.StyleSheet.create({
   container: {
-    flex: 1,
     padding: 25,
     backgroundColor: '#000000',
     alignItems: 'center'
+  },
+  containerStyle: {
+    flex: 1
   },
   input: {
     backgroundColor: '#FFFFFF',
@@ -140,8 +142,8 @@ class EditScreen extends React.Component {
       action.durationSeconds = duration;
       this.setState(this.state);
     };
-    const removeAction = action => () => {
-      _.remove(this.state.actions, _action => action.name === _action.name);
+    const removeAction = index => () => {
+      this.state.actions.splice(index, 1);
       this.setState(this.state);
     };
     const addAction = () => {
@@ -149,7 +151,9 @@ class EditScreen extends React.Component {
       this.setState(this.state);
     };
     return (
-      <React.View style={editScreenStyles.container}>
+      <React.ScrollView
+        contentContainerStyle={editScreenStyles.container}
+        style={editScreenStyles.containerStyle}>
         <React.Text style={editScreenStyles.inputHeader}>
           Iterations
         </React.Text>
@@ -174,11 +178,11 @@ class EditScreen extends React.Component {
           </React.Text>
         </React.View>
         {
-          this.state.actions.map(action => {
+          this.state.actions.map((action, index) => {
             return (
               <React.View
                 style={editScreenStyles.actionWrapper}
-                key={action.name}>
+                key={index}>
                 <React.TextInput
                   keyboardType="default"
                   style={editScreenStyles.input}
@@ -189,7 +193,7 @@ class EditScreen extends React.Component {
                   style={editScreenStyles.input}
                   value={action.durationSeconds}
                   onChangeText={changeActionDuration(action)} />
-                <React.TouchableHighlight onPress={removeAction(action)}>
+                <React.TouchableHighlight onPress={removeAction(index)}>
                   <React.Text style={editScreenStyles.cancelText}>
                     &#x2718;
                   </React.Text>
@@ -210,7 +214,7 @@ class EditScreen extends React.Component {
           <EditScreenSaveButton configuration={this.state} />
           <EditScreenCancelButton />
         </React.View>
-      </React.View>
+      </React.ScrollView>
     );
   }
 }

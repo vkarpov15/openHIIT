@@ -18,7 +18,7 @@ class StopTimerButton extends React.Component {
     return (
       <React.TouchableHighlight onPress={stop} style={styles.button}>
         <React.Text style={styles.timerControl}>
-          &#9726; Stop Timer!
+          &#9726; Stop Timer
         </React.Text>
       </React.TouchableHighlight>
     );
@@ -28,7 +28,7 @@ class StopTimerButton extends React.Component {
 class TimerScreen extends React.Component {
   render() {
     return (
-      <React.View style={styles.container}>
+      <React.View style={styles.containerTop}>
         <React.Text style={timerStyles.header}>
           {this.props.action.name}
         </React.Text>

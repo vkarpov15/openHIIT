@@ -36,7 +36,7 @@ class EditTimerButton extends React.Component {
 class HomeScreen extends React.Component {
   render() {
     return (
-      <React.View style={styles.container}>
+      <React.View style={styles.containerTop}>
         <React.Text style={styles.homeHeader}>
           Current Workout
         </React.Text>
@@ -89,7 +89,9 @@ class Basic extends React.Component {
     }
     if (this.state.current.state === 'EDIT') {
       return (
-        <EditScreen configuration={this.state.configuration} />
+        <React.View style={styles.container}>
+          <EditScreen configuration={this.state.configuration} />
+        </React.View>
       );
     }
   }
