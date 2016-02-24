@@ -1,4 +1,5 @@
 const React = require('react-native');
+const _ = require('lodash');
 const store = require('../store');
 const styles = require('../baseStyles');
 
@@ -42,13 +43,13 @@ const editScreenStyles = React.StyleSheet.create({
   },
   input: {
     backgroundColor: '#FFFFFF',
-    width: 120,
+    width: 110,
     fontSize: 25,
     padding: 3,
     margin: 10
   },
   columnHeader: {
-    width: 120,
+    width: 110,
     fontSize: 15,
     color: '#ffffff',
     marginLeft: 10,
@@ -62,26 +63,48 @@ const editScreenStyles = React.StyleSheet.create({
     paddingLeft: 5,
     marginBottom: 10,
     marginTop: 25,
-    width: 260,
+    width: 280,
     backgroundColor: '#232323'
   },
   actionWrapper: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    width: 280
+    width: 300
   },
   buttons: {
+    marginTop: 25,
     flexDirection: 'row',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    width: 280
   },
   button: {
-    margin: 20,
+    marginRight: 20,
     padding: 10,
     borderRadius: 10,
     borderWidth: 1,
-    backgroundColor: '#EB219B'
+    width: 130,
+    backgroundColor: '#EB219B',
+    alignItems: 'center'
   },
   buttonText: {
+    color: '#FFFFFF',
+    fontSize: 22,
+    fontFamily: 'Righteous'
+  },
+  cancelText: {
+    color: '#CCBC1D',
+    fontSize: 40
+  },
+  addActionButton: {
+    padding: 5,
+    borderRadius: 10,
+    borderWidth: 1,
+    width: 90,
+    backgroundColor: '#0BD2FD',
+    alignItems: 'center',
+    marginTop: 5
+  },
+  addActionText: {
     color: '#FFFFFF',
     fontSize: 22,
     fontFamily: 'Righteous'
@@ -115,6 +138,14 @@ class EditScreen extends React.Component {
     };
     const changeActionDuration = action => duration => {
       action.durationSeconds = duration;
+      this.setState(this.state);
+    };
+    const removeAction = action => () => {
+      _.remove(this.state.actions, _action => action.name === _action.name);
+      this.setState(this.state);
+    };
+    const addAction = () => {
+      this.state.actions.push({ name: 'New', durationSeconds: '10' });
       this.setState(this.state);
     };
     return (
@@ -158,10 +189,22 @@ class EditScreen extends React.Component {
                   style={editScreenStyles.input}
                   value={action.durationSeconds}
                   onChangeText={changeActionDuration(action)} />
+                <React.TouchableHighlight onPress={removeAction(action)}>
+                  <React.Text style={editScreenStyles.cancelText}>
+                    &#x2718;
+                  </React.Text>
+                </React.TouchableHighlight>
               </React.View>
             );
           })
         }
+        <React.TouchableHighlight
+          onPress={addAction}
+          style={editScreenStyles.addActionButton}>
+          <React.Text style={editScreenStyles.addActionText}>
+            + Add
+          </React.Text>
+        </React.TouchableHighlight>
         <React.View
           style={editScreenStyles.buttons}>
           <EditScreenSaveButton configuration={this.state} />

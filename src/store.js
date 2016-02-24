@@ -1,4 +1,5 @@
 const Sound = require('react-native-sound');
+const match = require('./match');
 const redux = require('redux');
 
 const doneNotification = new Sound('alarm.mp3', Sound.MAIN_BUNDLE);
@@ -110,11 +111,4 @@ function getDefaultState() {
       ]
     }
   };
-}
-
-function match(val, map) {
-  if (!map[val]) {
-    return map['DEFAULT']();
-  }
-  return map[val]();
 }
