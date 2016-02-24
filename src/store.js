@@ -8,7 +8,7 @@ const notification = new Sound('notify.mp3', Sound.MAIN_BUNDLE);
 const store = redux.createStore(reducer);
 module.exports = store;
 
-store.dispatch({ type: 'START_TIMER' });
+//store.dispatch({ type: 'START_TIMER' });
 
 function reducer(state, action) {
   state = !!state ? _.cloneDeep(state) : getDefaultState();
@@ -43,31 +43,28 @@ function reducer(state, action) {
     },
     TICK_100: () => {
       const actions = state.configuration.actions;
+      const numIterations = state.configuration.iterations;
       state.current.milliseconds = state.current.milliseconds - 100;
       if (state.current.milliseconds <= 0) {
         if (state.current.actionIndex + 1 < actions.length) {
           const action = actions[++state.current.actionIndex];
           state.current.milliseconds = action.durationMilliseconds;
-        } else if (state.current.iterations < state.configuration.iterations) {
-          ++state.current.iterations;
+          notification.play();
+        } else if (++state.current.iterations < numIterations) {
           state.current.actionIndex = 0;
           state.current.milliseconds =
             state.configuration.actions[0].durationMilliseconds;
+          notification.play();
         } else {
-          state.dispatch({ type: 'DONE' });
+          if (state.current.interval) {
+            clearInterval(state.current.interval);
+          }
+          state.current.interval = null;
+          state.current.state = 'DONE';
+          notification.stop();
+          doneNotification.play();
         }
-        notification.play();
       }
-      return state;
-    },
-    DONE: () => {
-      if (state.current.interval) {
-        clearInterval(state.current.interval);
-      }
-      state.current.interval = null;
-      state.current.done = true;
-      notification.stop();
-      doneNotification.play();
       return state;
     },
     SAVE_CONFIGURATION: () => {
@@ -89,7 +86,7 @@ function reducer(state, action) {
       return state;
     },
     RESET_AFTER_DONE: () => {
-      state.current.done = false;
+      state.current.state = 'HOME';
       return state;
     },
     DEFAULT: () => state

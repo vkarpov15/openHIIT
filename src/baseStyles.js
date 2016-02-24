@@ -18,6 +18,12 @@ module.exports = React.StyleSheet.create({
     fontSize: 45,
     fontFamily: 'Righteous'
   },
+  doneHeader: {
+    color: '#EB219B',
+    fontWeight: 'bold',
+    fontSize: 45,
+    fontFamily: 'Righteous'
+  },
   home: {
     color: '#EB219B',
     fontSize: 30

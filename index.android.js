@@ -33,6 +33,19 @@ class EditTimerButton extends React.Component {
   }
 }
 
+class HomeButton extends React.Component {
+  render() {
+    const reset = () => store.dispatch({ type: 'RESET_AFTER_DONE' });
+    return (
+      <React.TouchableHighlight onPress={reset} style={styles.button}>
+        <React.Text style={styles.timerControl}>
+          &#x21bb; Home
+        </React.Text>
+      </React.TouchableHighlight>
+    );
+  }
+}
+
 class HomeScreen extends React.Component {
   render() {
     return (
@@ -55,6 +68,19 @@ class HomeScreen extends React.Component {
         }
         <StartTimerButton />
         <EditTimerButton />
+      </React.View>
+    );
+  }
+}
+
+class DoneScreen extends React.Component {
+  render() {
+    return (
+      <React.View style={styles.containerTop}>
+        <React.Text style={styles.doneHeader}>
+          Great Workout!
+        </React.Text>
+        <HomeButton />
       </React.View>
     );
   }
@@ -92,6 +118,11 @@ class Basic extends React.Component {
         <React.View style={styles.container}>
           <EditScreen configuration={this.state.configuration} />
         </React.View>
+      );
+    }
+    if (this.state.current.state === 'DONE') {
+      return (
+        <DoneScreen />
       );
     }
   }
