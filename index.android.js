@@ -110,7 +110,9 @@ class Basic extends React.Component {
       return (
         <TimerScreen
           milliseconds={this.state.current.milliseconds}
-          action={currentAction} />
+          action={currentAction}
+          iteration={this.state.current.iterations}
+          numIterations={this.state.configuration.iterations} />
       );
     }
     if (this.state.current.state === 'EDIT') {

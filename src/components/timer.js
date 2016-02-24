@@ -27,6 +27,11 @@ const timerStyles = React.StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  iterationCount: {
+    color: '#CCBC1D',
+    fontSize: 35,
+    fontWeight: 'bold'
   }
 });
 
@@ -67,6 +72,9 @@ class TimerScreen extends React.Component {
           </React.View>
           <React.Text style={_style}></React.Text>
         </React.View>
+        <React.Text style={timerStyles.iterationCount}>
+          {this.props.iteration + 1} / {this.props.numIterations}
+        </React.Text>
         <StopTimerButton></StopTimerButton>
       </React.View>
     );

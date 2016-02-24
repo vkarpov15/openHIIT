@@ -8,8 +8,6 @@ const notification = new Sound('notify.mp3', Sound.MAIN_BUNDLE);
 const store = redux.createStore(reducer);
 module.exports = store;
 
-//store.dispatch({ type: 'START_TIMER' });
-
 function reducer(state, action) {
   state = !!state ? _.cloneDeep(state) : getDefaultState();
   return match(action.type, {
