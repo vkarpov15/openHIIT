@@ -22,12 +22,6 @@ module.exports = React.StyleSheet.create({
     color: '#EB219B',
     fontSize: 30
   },
-  timer: {
-    fontSize: 100,
-    fontFamily: 'monospace',
-    fontWeight: 'bold',
-    color: '#0BD2FD'
-  },
   button: {
     margin: 20,
     padding: 10,

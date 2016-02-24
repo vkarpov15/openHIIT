@@ -9,6 +9,24 @@ const timerStyles = React.StyleSheet.create({
     fontSize: 70,
     fontWeight: 'bold',
     marginBottom: 20
+  },
+  seconds: {
+    fontSize: 100,
+    fontFamily: 'monospace',
+    fontWeight: 'bold',
+    width: 260,
+    color: '#0BD2FD',
+    textAlign: 'center'
+  },
+  secondsWrapper: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center'
+  },
+  secondsWrapperInner: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 
@@ -27,14 +45,28 @@ class StopTimerButton extends React.Component {
 
 class TimerScreen extends React.Component {
   render() {
+    const percent = this.props.milliseconds /
+      this.props.action.durationMilliseconds;
+    const _style = {
+      height: (percent * 80),
+      marginTop: 110 - (percent * 80),
+      backgroundColor: '#EB219B',
+      width: 20
+    };
     return (
       <React.View style={styles.containerTop}>
         <React.Text style={timerStyles.header}>
           {this.props.action.name}
         </React.Text>
-        <React.Text style={styles.timer}>
-          {(this.props.milliseconds / 1000).toFixed(1)}
-        </React.Text>
+        <React.View style={timerStyles.secondsWrapper}>
+          <React.Text style={_style}></React.Text>
+          <React.View style={timerStyles.secondsWrapperInner}>
+            <React.Text style={timerStyles.seconds}>
+              {(this.props.milliseconds / 1000).toFixed(1)}
+            </React.Text>
+          </React.View>
+          <React.Text style={_style}></React.Text>
+        </React.View>
         <StopTimerButton></StopTimerButton>
       </React.View>
     );
