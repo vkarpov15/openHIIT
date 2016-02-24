@@ -42,7 +42,7 @@ MERGED from [com.android.support:support-v4:23.0.1] /home/val/Workspace/meanIT/o
 	android:allowBackup
 		ADDED from /home/val/Workspace/meanIT/openHIIT/android/app/src/main/AndroidManifest.xml:7:7-33
 	android:icon
-		ADDED from /home/val/Workspace/meanIT/openHIIT/android/app/src/main/AndroidManifest.xml:9:7-41
+		ADDED from /home/val/Workspace/meanIT/openHIIT/android/app/src/main/AndroidManifest.xml:9:7-34
 	android:theme
 		ADDED from /home/val/Workspace/meanIT/openHIIT/android/app/src/main/AndroidManifest.xml:10:7-38
 activity#com.basic.MainActivity
