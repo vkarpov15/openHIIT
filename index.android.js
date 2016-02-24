@@ -86,7 +86,7 @@ class DoneScreen extends React.Component {
   }
 }
 
-class Basic extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = store.getState();
@@ -130,4 +130,4 @@ class Basic extends React.Component {
   }
 }
 
-React.AppRegistry.registerComponent('Basic', () => Basic);
+React.AppRegistry.registerComponent('App', () => App);
